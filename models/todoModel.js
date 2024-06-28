@@ -6,7 +6,19 @@ const todoSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    body: {
+    description: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: String,
+      required: true,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    thumbnail: {
       type: String,
       required: true,
     },

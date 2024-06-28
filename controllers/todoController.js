@@ -2,12 +2,15 @@ import Todo from "../models/todoModel.js";
 
 const addUserTodo = async (req, res) => {
   try {
-    const { title, body } = req.body;
+    const { title, description, price, thumbnail, category } = req.body;
 
     if (req.user) {
       const todo = await Todo.create({
         title,
-        body,
+        description,
+        price,
+        thumbnail,
+        category,
         user_id: req.user._id,
       });
 
