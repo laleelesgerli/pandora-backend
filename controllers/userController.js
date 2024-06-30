@@ -1,6 +1,17 @@
 import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
 
+
+const getUser = async (req, res) => {
+  try {
+      const allUsers = await User.find();
+      res.json({ allUsers });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 const authUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -12,6 +23,7 @@ const authUser = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        userType: user.userType,
       });
     } else {
       res.status(400).json({ message: 'Email ya da parola hatalı' });
@@ -23,7 +35,7 @@ const authUser = async (req, res) => {
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password,userType } = req.body;
 
     const userExists = await User.findOne({ email });
 
@@ -36,6 +48,7 @@ const registerUser = async (req, res) => {
       name,
       email,
       password,
+      userType,
     });
 
     if (user) {
@@ -44,6 +57,7 @@ const registerUser = async (req, res) => {
         _id: user._id,
         email: user.email,
         name: user.name,
+        userType: user.userType,
       });
     } else {
       res.status(400).json({ message: "User not added" });
@@ -72,6 +86,7 @@ const getUserProfile = async (req, res) => {
         _id: req.user._id,
         name: req.user.name,
         email: req.user.email,
+        userType: res.user.userType,
       });
     } else {
       res.status(404).json({ message: 'Kullanıcı Bulunamadı' });
@@ -114,4 +129,5 @@ export {
   logoutUser,
   getUserProfile,
   updateUserProfile,
+  getUser,
 };

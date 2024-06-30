@@ -1,12 +1,9 @@
 import mongoose from "mongoose";
 
+
 const todoSchema = mongoose.Schema(
   {
     title: {
-      type: String,
-      required: true,
-    },
-    description: {
       type: String,
       required: true,
     },
@@ -14,14 +11,15 @@ const todoSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    category: {
+    description: {
       type: String,
       required: true,
     },
-    thumbnail: {
-      type: String,
+    photo: {
+      type: String, // base64 encoded ucun string qebul edir
       required: true,
-    },
+      default: '',
+  },
     user_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

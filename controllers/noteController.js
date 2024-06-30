@@ -52,3 +52,4 @@ const deleteById = async (req, res) => {
 };
 
 export { notePost, getNote, getByIdNote, deleteById };
+
